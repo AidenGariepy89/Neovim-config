@@ -1,6 +1,7 @@
 return require('packer').startup(function()
     use 'wbthomason/packer.nvim'
     use 'rose-pine/neovim'
+    use 'catppuccin/nvim'
     use { 'nvim-telescope/telescope.nvim', tag = '0.1.1', requires = { { 'nvim-lua/plenary.nvim' } } }
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
     use 'nvim-treesitter/nvim-treesitter-context'

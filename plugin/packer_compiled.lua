@@ -144,6 +144,11 @@ _G.packer_plugins = {
     path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/nui.nvim",
     url = "https://github.com/MunifTanjim/nui.nvim"
   },
+  nvim = {
+    loaded = true,
+    path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/nvim",
+    url = "https://github.com/catppuccin/nvim"
+  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/nvim-cmp",
