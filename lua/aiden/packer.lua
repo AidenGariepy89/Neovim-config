@@ -3,9 +3,11 @@ return require('packer').startup(function()
     use 'rose-pine/neovim'
     use { 'nvim-telescope/telescope.nvim', tag = '0.1.1', requires = { { 'nvim-lua/plenary.nvim' } } }
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use 'nvim-treesitter/nvim-treesitter-context'
     use 'theprimeagen/harpoon'
     use 'mbbill/undotree'
     use 'tpope/vim-fugitive'
+    use 'tpope/vim-commentary'
     vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
     use {
         "nvim-neo-tree/neo-tree.nvim",

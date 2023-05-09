@@ -159,6 +159,11 @@ _G.packer_plugins = {
     path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
+  ["nvim-treesitter-context"] = {
+    loaded = true,
+    path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/nvim-treesitter-context",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter-context"
+  },
   ["nvim-web-devicons"] = {
     loaded = true,
     path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
@@ -183,6 +188,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/undotree",
     url = "https://github.com/mbbill/undotree"
+  },
+  ["vim-commentary"] = {
+    loaded = true,
+    path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/vim-commentary",
+    url = "https://github.com/tpope/vim-commentary"
   },
   ["vim-fugitive"] = {
     loaded = true,
