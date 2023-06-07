@@ -10,6 +10,8 @@ return require('packer').startup(function()
     use 'tpope/vim-commentary'
     use 'Pocco81/true-zen.nvim'
     use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
+    use 'alec-gibson/nvim-tetris'
+    use 'mfussenegger/nvim-dap' -- TODO: setup
 
     vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
     use {
