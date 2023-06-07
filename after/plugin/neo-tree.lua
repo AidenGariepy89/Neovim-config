@@ -1,4 +1,6 @@
--- vim.keymap.set('n', '<leader>e', '<cmd>Neotree toggle<cr>')
+local manager = require('aiden.manager')
+
+vim.keymap.set('n', '<leader>e', function() require('aiden.manager').update_neotree() end)
 vim.keymap.set('n', '<leader>pv', '<cmd>Neotree toggle<cr>')
 vim.keymap.set('n', '<leader>o', function()
     if vim.bo.filetype == "neo-tree" then
