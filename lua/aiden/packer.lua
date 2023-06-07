@@ -1,6 +1,5 @@
 return require('packer').startup(function()
     use 'wbthomason/packer.nvim'
-    use 'rose-pine/neovim'
     use 'catppuccin/nvim'
     use { 'nvim-telescope/telescope.nvim', tag = '0.1.1', requires = { { 'nvim-lua/plenary.nvim' } } }
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
@@ -9,6 +8,9 @@ return require('packer').startup(function()
     use 'mbbill/undotree'
     use 'tpope/vim-fugitive'
     use 'tpope/vim-commentary'
+    use 'Pocco81/true-zen.nvim'
+    use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
+
     vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
     use {
         "nvim-neo-tree/neo-tree.nvim",

@@ -134,11 +134,6 @@ _G.packer_plugins = {
     path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/neo-tree.nvim",
     url = "https://github.com/nvim-neo-tree/neo-tree.nvim"
   },
-  neovim = {
-    loaded = true,
-    path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/neovim",
-    url = "https://github.com/rose-pine/neovim"
-  },
   ["nui.nvim"] = {
     loaded = true,
     path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/nui.nvim",
@@ -169,6 +164,11 @@ _G.packer_plugins = {
     path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/nvim-treesitter-context",
     url = "https://github.com/nvim-treesitter/nvim-treesitter-context"
   },
+  ["nvim-ufo"] = {
+    loaded = true,
+    path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/nvim-ufo",
+    url = "https://github.com/kevinhwang91/nvim-ufo"
+  },
   ["nvim-web-devicons"] = {
     loaded = true,
     path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
@@ -184,10 +184,20 @@ _G.packer_plugins = {
     path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
+  ["promise-async"] = {
+    loaded = true,
+    path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/promise-async",
+    url = "https://github.com/kevinhwang91/promise-async"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
+  },
+  ["true-zen.nvim"] = {
+    loaded = true,
+    path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/true-zen.nvim",
+    url = "https://github.com/Pocco81/true-zen.nvim"
   },
   undotree = {
     loaded = true,

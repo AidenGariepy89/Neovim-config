@@ -6,15 +6,13 @@ lsp.ensure_installed({
     'tsserver',
     'eslint',
     'rust_analyzer',
-    'omnisharp',
 })
 
--- Fix Undefined global 'vim'
-lsp.configure('lua-language-server', {
+require('lspconfig').lua_ls.setup({
     settings = {
         Lua = {
             diagnostics = {
-                globals = { 'vim' }
+                globals = { 'vim', 'use' }
             }
         }
     }
@@ -46,7 +44,7 @@ lsp.set_preferences({
     }
 })
 
-lsp.on_attach(function(client, bufnr)
+lsp.on_attach(function(_, bufnr) -- '_' used to be client
     local opts = { buffer = bufnr, remap = false }
 
     vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
