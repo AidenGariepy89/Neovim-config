@@ -11,8 +11,10 @@ return require('packer').startup(function()
     use 'Pocco81/true-zen.nvim'
     use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
     use 'alec-gibson/nvim-tetris'
-    use 'mfussenegger/nvim-dap' -- TODO: setup
     use { 'lewis6991/gitsigns.nvim', tag = 'release', config = function() require('gitsigns').setup() end }
+    use 'rebelot/heirline.nvim'
+    use 'mfussenegger/nvim-dap' -- TODO: setup
+    use 'rcarriga/nvim-dap'
 
     vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
     use {
