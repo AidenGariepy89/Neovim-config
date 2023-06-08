@@ -160,11 +160,6 @@ _G.packer_plugins = {
     path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
-  ["nvim-dap"] = {
-    loaded = true,
-    path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/nvim-dap",
-    url = "https://github.com/mfussenegger/nvim-dap"
-  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/Users/aiden/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
