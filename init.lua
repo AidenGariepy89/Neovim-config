@@ -29,6 +29,7 @@ require("lazy").setup({
         dependencies = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
+            "whoissethdaniel/mason-tool-installer.nvim",
             { "j-hui/fidget.nvim", opts = {} },
             "folke/neodev.nvim",
         },
@@ -420,7 +421,30 @@ mason_lspconfig.setup_handlers {
         })
     end,
 }
+-- Formaters
+require("mason-tool-installer").setup({
+    ensure_installed = {
+        "black",
+        "isort",
+        "docformatter",
+    },
+})
 
+local autocmd_group = vim.api.nvim_create_augroup("Custom auto-commands", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+    pattern = { "*.py" },
+    desc = "Auto-format Python file after saving",
+    callback = function()
+        local fileName = vim.api.nvim_buf_get_name(0)
+        vim.cmd(":silent !black --preview -q " .. fileName)
+        vim.cmd(":silent !isort --profile black --float-to-top -q " .. fileName)
+        vim.cmd(":silent !docformatter --in-place --black " .. fileName)
+    end,
+    group = autocmd_group,
+})
+
+-- LSPs
 require("lspconfig").htmx.setup({
     capabilities = capabilities,
     on_attach = on_attach,
