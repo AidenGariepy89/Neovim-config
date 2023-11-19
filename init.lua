@@ -214,6 +214,18 @@ vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnos
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic list" })
 
+-- [[ Configure LuaSnip ]]
+
+vim.keymap.set("i", "<C-K>", function()
+    require("luasnip").expand()
+end, { silent = true, desc = "" })
+vim.keymap.set({ "i", "s" }, "<C-L>", function()
+    require("luasnip").jump(1)
+end, { silent = true, desc = "" })
+vim.keymap.set({ "i", "s" }, "<C-H>", function()
+    require("luasnip").jump(-1)
+end, { silent = true, desc = "" })
+
 -- [[ Configure Fugitive ]]
 
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
@@ -400,14 +412,20 @@ mason_lspconfig.setup {
 }
 mason_lspconfig.setup_handlers {
     function(server_name)
-        require("lspconfig")[server_name].setup {
+        require("lspconfig")[server_name].setup({
             capabilities = capabilities,
             on_attach = on_attach,
             settings = servers[server_name],
             filetypes = (servers[server_name] or {}).filetypes,
-        }
+        })
     end,
 }
+
+require("lspconfig").htmx.setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+    filetypes = { "html" },
+})
 
 -- [[ Configure cmp ]]
 local cmp = require("cmp")
