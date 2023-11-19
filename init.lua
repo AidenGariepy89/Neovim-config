@@ -211,6 +211,33 @@ vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnos
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic list" })
 
+-- [[ Configure Fugitive ]]
+
+vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
+vim.keymap.set("n", "<leader>gl", "<cmd>Git log --oneline<cr>")
+vim.keymap.set("n", "<leader>gf", "<cmd>Git fetch<cr>")
+
+local fugitive = vim.api.nvim_create_augroup("Fugitive", {})
+vim.api.nvim_create_autocmd("BufWinEnter", {
+    group = fugitive,
+    pattern = "*",
+    callback = function()
+        if vim.bo.ft ~= "fugitive" then
+            return
+        end
+
+        local bufnr = vim.api.nvim_get_current_buf()
+        local opts = { buffer = bufnr, remap = false }
+        vim.keymap.set("n", "<leader>p", function()
+            vim.cmd.Git("push")
+        end, opts)
+        vim.keymap.set("n", "<leader>P", function()
+            vim.cmd.Git("pull --rebase")
+        end, opts)
+        vim.keymap.set("n", "<leader>t", ":Git push -u origin main", opts)
+    end,
+})
+
 -- [[ Configure Harpoon ]]
 
 vim.keymap.set("n", "<leader>a", require("harpoon.mark").add_file, { desc = "[A]dd file to harpoon" })
@@ -343,6 +370,7 @@ require("which-key").register {
     ["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
     ["<leader>r"] = { name = "[R]ename" },
     ["<leader>h"] = { name = "Git [H]unk", _ = "which_key_ignore" },
+    ["<leader>g"] = { name = "[G]it", _ = "which_key_ignore" },
 }
 
 require("mason").setup()
