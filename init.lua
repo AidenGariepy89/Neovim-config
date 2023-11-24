@@ -210,11 +210,6 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc =
 vim.keymap.set("n", "<leader>=", "<C-a>", { desc = "Increment" })
 vim.keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement" })
 
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic list" })
-
 -- [[ Configure LuaSnip ]]
 
 vim.keymap.set("i", "<C-K>", function()
@@ -375,10 +370,16 @@ local on_attach = function(_, bufnr)
 
     nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
     nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [a]ction")
+    nmap("<leader>rr", vim.lsp.buf.references, "[R]efe[r]ences")
+    vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
 
     nmap("gd", vim.lsp.buf.definition, "[G]oto [d]efinition")
-
     nmap("K", vim.lsp.buf.hover, "Hover Documentation")
+
+    nmap("[d", vim.diagnostic.goto_prev, "Go to previous diagnostic message")
+    nmap("]d", vim.diagnostic.goto_next, "Go to next diagnostic message")
+    nmap("<leader>e", vim.diagnostic.open_float, "Open floating diagnostic message")
+    nmap("<leader>q", vim.diagnostic.setloclist, "Open diagnostic list")
 end
 
 require("which-key").register {
