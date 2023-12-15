@@ -225,6 +225,11 @@ local function swap_bg()
     if transparent_bg then
         require("catppuccin").setup({
             transparent_background = false,
+            flavour = "mocha",
+            no_italic = true,
+            dim_inactive = {
+                enabled = true,
+            },
         })
         vim.cmd.colorscheme("catppuccin")
 
@@ -232,6 +237,11 @@ local function swap_bg()
     else
         require("catppuccin").setup({
             transparent_background = true,
+            flavour = "mocha",
+            no_italic = true,
+            dim_inactive = {
+                enabled = true,
+            },
         })
         vim.cmd.colorscheme("catppuccin")
 
