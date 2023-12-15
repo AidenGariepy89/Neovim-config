@@ -219,6 +219,28 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc =
 vim.keymap.set("n", "<leader>=", "<C-a>", { desc = "Increment" })
 vim.keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement" })
 
+-- [[ Colors ]]
+local transparent_bg = false
+local function swap_bg()
+    if transparent_bg then
+        require("catppuccin").setup({
+            transparent_background = false,
+        })
+        vim.cmd.colorscheme("catppuccin")
+
+        transparent_bg = false
+    else
+        require("catppuccin").setup({
+            transparent_background = true,
+        })
+        vim.cmd.colorscheme("catppuccin")
+
+        transparent_bg = true
+    end
+end
+vim.api.nvim_create_user_command("SwapBG", swap_bg, {})
+vim.keymap.set("n", "<leader>bg", "<cmd>SwapBG<cr>")
+
 -- [[ Configure LuaSnip ]]
 
 vim.keymap.set("i", "<C-K>", function()
