@@ -83,6 +83,7 @@ require("lazy").setup({
             "nvim-treesitter/nvim-treesitter-textobjects",
         },
         build = ":TSUpdate",
+        "nvim-treesitter/nvim-treesitter-context",
     },
 
     { -- Telescope
@@ -172,7 +173,7 @@ vim.opt.colorcolumn = "80"
 
 vim.opt.guicursor = ""
 
-vim.opt.mouse = ""
+vim.opt.mouse = "nv"
 
 -- [[ Keymaps ]]
 
@@ -338,7 +339,7 @@ vim.defer_fn(function()
     require("nvim-treesitter.configs").setup({
         ensure_installed = { "c", "cpp", "go", "lua", "rust", "python", "php", "bash", "javascript", "typescript", "tsx" },
 
-        auto_install = false,
+        auto_install = true,
         modules = {},
         ignore_install = {},
         sync_install = false,
@@ -459,7 +460,16 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 require("lspconfig").htmx.setup({
     capabilities = capabilities,
     on_attach = on_attach,
-    filetypes = { "html" },
+    filetypes = { "html", "php" },
+})
+
+local util = require("lspconfig.util")
+
+require("lspconfig").gdscript.setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+    filetypes = { "gd", "gdscript", "gdscript3" },
+    root_dir = util.root_pattern("project.godot", ".git"),
 })
 
 -- [[ Configure cmp ]]
