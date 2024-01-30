@@ -1,5 +1,5 @@
 vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.maplocalleader = '\\'
 
 -- [[ Lazy ]]
 
@@ -79,6 +79,11 @@ require("lazy").setup({
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
         opts = {},
+    },
+
+    {
+        "lervag/vimtex",
+        lazy = false,
     },
 
     { "numToStr/Comment.nvim", opts = {} },
@@ -180,6 +185,8 @@ vim.opt.colorcolumn = "80"
 vim.opt.guicursor = ""
 
 vim.opt.mouse = "nv"
+
+vim.g.vimtex_view_method = 'sioyek'
 
 -- [[ Keymaps ]]
 
@@ -382,7 +389,10 @@ vim.defer_fn(function()
         ignore_install = {},
         sync_install = false,
 
-        highlight = { enable = true },
+        highlight = {
+            enable = true,
+            disable = { "latex", "tex" },
+        },
         indent = { enable = true },
         incremental_selection = {
             enable = true,
@@ -494,12 +504,22 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     group = autocmd_group,
 })
 
+-- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+--     pattern = { "*.rs" },
+--     desc = "Auto-format Rust file after saving",
+--     callback = function()
+--         local file_name = vim.api.nvim_buf_get_name(0)
+--         vim.cmd(":silent !cargo fmt")
+--     end,
+--     group = autocmd_group,
+-- })
+
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-    pattern = { "*.rs" },
-    desc = "Auto-format Rust file after saving",
-    callback = function()
+    pattern = { "*.go" },
+    desc = "Auto-format Go file after saving",
+    callback = function ()
         local file_name = vim.api.nvim_buf_get_name(0)
-        vim.cmd(":silent !cargo fmt")
+        vim.cmd(":silent !go fmt " .. file_name)
     end,
     group = autocmd_group,
 })
