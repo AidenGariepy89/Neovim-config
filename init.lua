@@ -194,6 +194,9 @@ vim.opt.mouse = "nv"
 
 vim.g.vimtex_view_method = 'sioyek'
 
+-- attempting to solve the netrw 'copy file' issue
+vim.g.netrw_keepdir = 0
+
 -- [[ Keymaps ]]
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open explorer" })
