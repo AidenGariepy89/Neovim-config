@@ -134,6 +134,18 @@ lspconfig.gdscript.setup({
     root_dir = util.root_pattern("project.godot", ".git"),
 })
 
+lspconfig.zls.setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+    filetypes = { "zig" },
+    root_dir = util.root_pattern("build.zig", ".git"),
+    settings = {
+        zls = {
+            zig_exe_path = "/home/aiden/.local/bin/zig/zig",
+        },
+    },
+})
+
 -- [[ Configure cmp ]]
 local cmp = require("cmp")
 local luasnip = require("luasnip")

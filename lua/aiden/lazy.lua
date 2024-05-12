@@ -45,6 +45,22 @@ require("lazy").setup({
     { "folke/which-key.nvim",  opts = {} },
 
     {
+        "folke/tokyonight.nvim",
+        priority = 1000,
+        config = function()
+            vim.cmd.colorscheme("tokyonight-night")
+        end,
+    },
+
+    {
+        "rebelot/kanagawa.nvim",
+        priority = 1000,
+        -- config = function()
+        --     vim.cmd.colorscheme("kanagawa")
+        -- end,
+    },
+
+    {
         "catppuccin/nvim",
         name = "catppuccin",
         priority = 1000,
@@ -56,7 +72,6 @@ require("lazy").setup({
                     enabled = true,
                 },
             })
-            vim.cmd.colorscheme("catppuccin")
         end,
     },
 
@@ -65,7 +80,8 @@ require("lazy").setup({
         opts = {
             options = {
                 icons_enabled = false,
-                theme = 'catppuccin',
+                -- theme = 'catppuccin',
+                theme = "tokyonight",
                 component_separators = '|',
                 section_separators = '',
             },
