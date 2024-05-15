@@ -23,14 +23,6 @@ local on_attach = function(_, bufnr)
     nmap("<leader>q", vim.diagnostic.setloclist, "Open diagnostic list")
 end
 
-require("which-key").register {
-    ["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
-    ["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
-    ["<leader>r"] = { name = "[R]ename" },
-    ["<leader>h"] = { name = "Git [H]unk", _ = "which_key_ignore" },
-    ["<leader>g"] = { name = "[G]it", _ = "which_key_ignore" },
-}
-
 require("mason").setup()
 require("mason-lspconfig").setup()
 
@@ -145,6 +137,16 @@ lspconfig.zls.setup({
         },
     },
 })
+
+if (require("aiden.utils").isMacOs()) then
+    lspconfig.phpactor.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        filetypes = { "php" },
+        root_dir = util.root_pattern(".git", "composer.json"),
+        cmd =  {'phpactor', 'language-server'},
+    })
+end
 
 -- [[ Configure cmp ]]
 local cmp = require("cmp")

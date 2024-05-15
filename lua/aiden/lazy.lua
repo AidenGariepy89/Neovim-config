@@ -168,4 +168,10 @@ require("lazy").setup({
             end,
         },
     },
+
+    {
+        "Vonr/align.nvim",
+        branch = "v2",
+        lazy = true,
+    },
 }, {})

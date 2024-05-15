@@ -104,6 +104,19 @@ end
 vim.api.nvim_create_user_command("SwapBG", swap_bg, {})
 vim.keymap.set("n", "<leader>bg", "<cmd>SwapBG<cr>")
 
+-- [[ Configure Which-Key ]]
+
+require("which-key").register({
+    ["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
+    ["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
+    ["<leader>r"] = { name = "[R]ename" },
+    ["<leader>h"] = { name = "Git [H]unk", _ = "which_key_ignore" },
+    ["<leader>g"] = { name = "[G]it", _ = "which_key_ignore" },
+})
+require("which-key").register({
+    ["<leader>a"] = { name = "[A]lign", _ = "which_key_ignore" },
+}, { mode = "v" })
+
 -- [[ Configure LuaSnip ]]
 
 vim.keymap.set("i", "<C-K>", function()
@@ -261,3 +274,10 @@ vim.defer_fn(function()
         },
     })
 end, 0)
+
+-- [[ Configure Align ]]
+
+local align = require("align")
+
+vim.keymap.set("x", "<leader>aa", function() align.align_to_char({ preview = true, length = 2 }) end, { desc = "Align to character" })
+vim.keymap.set("x", "<leader>as", function() align.align_to_string({ preview = true, regex = false }) end, { desc = "Align to string" })
