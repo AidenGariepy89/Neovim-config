@@ -44,6 +44,24 @@ local servers = {
             "rust",
         },
     },
+    emmet_language_server = {
+        filetypes = {
+            "css",
+            "eruby",
+            "html",
+            "htmldjango",
+            "javascriptreact",
+            "less",
+            "pug",
+            "sass",
+            "scss",
+            "typescriptreact",
+            "php",
+        },
+    },
+    htmx = {
+        filetypes = { "html", "php" },
+    },
 }
 
 require("neodev").setup()
@@ -111,12 +129,6 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 })
 
 -- LSPs
-lspconfig.htmx.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-    filetypes = { "html", "php" },
-})
-
 local util = require("lspconfig.util")
 
 lspconfig.gdscript.setup({

@@ -279,5 +279,6 @@ end, 0)
 
 local align = require("align")
 
-vim.keymap.set("x", "<leader>aa", function() align.align_to_char({ preview = true, length = 2 }) end, { desc = "Align to character" })
+vim.keymap.set("x", "<leader>aa", function() align.align_to_char({ preview = false, length = 1 }) end, { desc = "Align to character" })
+vim.keymap.set("x", "<leader>ap", function() align.align_to_char({ preview = true, length = 2 }) end, { desc = "Align to character (with Preview)" })
 vim.keymap.set("x", "<leader>as", function() align.align_to_string({ preview = true, regex = false }) end, { desc = "Align to string" })
