@@ -132,6 +132,8 @@ end, { silent = true, desc = "" })
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 vim.keymap.set("n", "<leader>gl", "<cmd>Git log --oneline<cr>")
 vim.keymap.set("n", "<leader>gf", "<cmd>Git fetch<cr>")
+vim.keymap.set("n", "gh", "<cmd>diffget //2<cr>", { desc = "Git diff select left" })
+vim.keymap.set("n", "gl", "<cmd>diffget //3<cr>", { desc = "Git diff select right" })
 
 local fugitive = vim.api.nvim_create_augroup("Fugitive", {})
 vim.api.nvim_create_autocmd("BufWinEnter", {
