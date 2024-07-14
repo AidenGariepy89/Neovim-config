@@ -106,16 +106,14 @@ vim.keymap.set("n", "<leader>bg", "<cmd>SwapBG<cr>")
 
 -- [[ Configure Which-Key ]]
 
-require("which-key").register({
-    ["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
-    ["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
-    ["<leader>r"] = { name = "[R]ename" },
-    ["<leader>h"] = { name = "Git [H]unk", _ = "which_key_ignore" },
-    ["<leader>g"] = { name = "[G]it", _ = "which_key_ignore" },
-})
-require("which-key").register({
-    ["<leader>a"] = { name = "[A]lign", _ = "which_key_ignore" },
-}, { mode = "v" })
+require("which-key").add({
+    { "<leader>c", group = "[C]ode" },
+    { "<leader>s", group = "[S]earch" },
+    { "<leader>r", group = "[R]ename" },
+    { "<leader>h", group = "Git [H]unk" },
+    { "<leader>g", group = "[G]it" },
+    { "<leader>a", group = "[A]lign", mode = "v" },
+});
 
 -- [[ Configure LuaSnip ]]
 
