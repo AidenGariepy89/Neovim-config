@@ -28,6 +28,12 @@ require("mason-lspconfig").setup()
 
 -- See :help lspconfig-setup
 local servers = {
+    zls = {
+        zls = {
+            zig_exe_path = "/home/aiden/.local/bin/zig-1.3/zig",
+        },
+        filetypes = { "zig", },
+    },
     lua_ls = {
         Lua = {
             workspace = { checkThirdParty = false },
@@ -57,10 +63,11 @@ local servers = {
             "scss",
             "typescriptreact",
             "php",
+            "htmlangular",
         },
     },
     htmx = {
-        filetypes = { "html", "php" },
+        filetypes = { "html", "php", "htmlangular" },
     },
 }
 
@@ -136,18 +143,6 @@ lspconfig.gdscript.setup({
     on_attach = on_attach,
     filetypes = { "gd", "gdscript", "gdscript3" },
     root_dir = util.root_pattern("project.godot", ".git"),
-})
-
-lspconfig.zls.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-    filetypes = { "zig" },
-    root_dir = util.root_pattern("build.zig", ".git"),
-    settings = {
-        zls = {
-            zig_exe_path = "/home/aiden/.local/bin/zig/zig",
-        },
-    },
 })
 
 if (require("aiden.utils").isMacOs()) then
