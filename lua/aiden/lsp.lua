@@ -31,6 +31,8 @@ local servers = {
     zls = {
         zls = {
             zig_exe_path = "/home/aiden/.local/bin/zig-1.3/zig",
+            enable_inlay_hints = true,
+            warn_style = true,
         },
         filetypes = { "zig", },
     },
