@@ -1,6 +1,7 @@
 vim.opt.shortmess:append "c"
 
 local cmp = require("cmp")
+local lspkind = require("lspkind")
 
 local cmp_select = { behavior = cmp.SelectBehavior.Insert }
 
@@ -28,6 +29,17 @@ cmp.setup({
     completion = {
         completeopt = "menu,menuone,noinsert",
     },
+    formatting = {
+        format = lspkind.cmp_format({
+            mode = "symbol_text",
+        }),
+    },
+    window = {
+        completion = {
+            border = "rounded",
+            scrollbar = true,
+        },
+    },
 })
 
 local ls = require("luasnip")
@@ -51,3 +63,15 @@ end, { silent = true, desc = "" })
 vim.keymap.set({ "i", "s" }, "<C-H>", function()
     ls.jump(-1)
 end, { silent = true, desc = "" })
+
+vim.diagnostic.config({
+    update_in_insert = true,
+    float = {
+        focusable = false,
+        style = "minimal",
+        border = "rounded",
+        source = true,
+        header = "",
+        prefix = "",
+    },
+})
