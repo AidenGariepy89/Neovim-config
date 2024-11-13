@@ -3,6 +3,7 @@ return {
     lazy = false,
     priority = 100,
     dependencies = {
+        "hrsh7th/cmp-nvim-lsp-signature-help",
         "onsails/lspkind.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-path",

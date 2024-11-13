@@ -7,6 +7,7 @@ local cmp_select = { behavior = cmp.SelectBehavior.Insert }
 
 cmp.setup({
     sources = {
+        { name = "nvim_lsp_signature_help" },
         { name = "nvim_lsp" },
         { name = "path" },
         { name = "buffer" },
