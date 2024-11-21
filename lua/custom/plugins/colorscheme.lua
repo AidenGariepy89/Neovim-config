@@ -10,9 +10,9 @@ return {
         "catppuccin/nvim",
         name = "catppuccin",
         priority = 1000,
-        -- config = function()
-        --     vim.cmd.colorscheme("catppuccin-mocha")
-        -- end,
+        config = function()
+            vim.cmd.colorscheme("catppuccin-mocha")
+        end,
     },
     {
         "ellisonleao/gruvbox.nvim",
@@ -38,9 +38,9 @@ return {
     {
         "rebelot/kanagawa.nvim",
         priority = 1000,
-        config = function()
-            vim.cmd.colorscheme("kanagawa")
-        end,
+        -- config = function()
+        --     vim.cmd.colorscheme("kanagawa")
+        -- end,
     },
 
     -- Lualine
@@ -49,7 +49,7 @@ return {
         opts = {
             options = {
                 icons_enabled = true,
-                theme = "kanagawa",
+                theme = "catppuccin-mocha",
                 component_separators = '|',
                 section_separators = '',
             },
