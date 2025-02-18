@@ -30,6 +30,19 @@ local on_attach = function(_, bufnr)
     nmap("<leader>q", vim.diagnostic.setloclist, "Open diagnostic list")
 end
 
+lspconfig.zls.setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+    root_dir = lspconfig.util.root_pattern(".git", "build.zig", "zls.json"),
+    settings = {
+        zls = {
+            warn_style = false
+        },
+    },
+})
+vim.g.zig_fmt_parse_errors = 0
+vim.g.zig_fmt_autosave = 0
+
 require("fidget").setup({})
 require("neodev").setup()
 require("mason").setup()
@@ -44,21 +57,6 @@ require("mason-lspconfig").setup({
                 capabilities = capabilities,
                 on_attach = on_attach,
             })
-        end,
-
-        zls = function()
-            lspconfig.zls.setup({
-                capabilities = capabilities,
-                on_attach = on_attach,
-                root_dir = lspconfig.util.root_pattern(".git", "build.zig", "zls.json"),
-                settings = {
-                    zls = {
-                        warn_style = false
-                    },
-                },
-            })
-            vim.g.zig_fmt_parse_errors = 0
-            vim.g.zig_fmt_autosave = 0
         end,
 
         lua_ls = function()

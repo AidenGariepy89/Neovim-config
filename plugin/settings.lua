@@ -31,3 +31,6 @@ vim.opt.colorcolumn = "80"
 vim.opt.guicursor = ""
 
 vim.opt.mouse = "nv"
+
+-- Don't sort .c and .h files seperately.
+-- vim.g.netrw_sort_sequence = "[\\/]$,\\<core\\%(\\.\\d\\+\\)\\=\\>,\\~\\=\\*$,*,\\.o$,\\.obj$,\\.info$,\\.swp$,\\.bak$,\\~$"
