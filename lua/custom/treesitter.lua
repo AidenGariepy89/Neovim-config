@@ -25,4 +25,13 @@ vim.defer_fn(function()
             },
         },
     })
+
+    -- For `rustish` compiler.
+    vim.filetype.add({
+        extension = {
+            ri = "rustish",
+        }
+    })
+    vim.treesitter.language.register("rust", "rustish")
+
 end, 0)
