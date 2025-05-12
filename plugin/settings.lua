@@ -11,7 +11,9 @@ vim.opt.breakindent = true
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+if vim.uv.os_uname().sysname ~= "Windows_NT" then
+    vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+end
 vim.opt.undofile = true
 
 vim.opt.hlsearch = false
@@ -35,3 +37,5 @@ vim.opt.mouse = "nv"
 -- Don't sort .c and .h files seperately.
 -- vim.g.netrw_sort_sequence = "[\\/]$,\\<core\\%(\\.\\d\\+\\)\\=\\>,\\~\\=\\*$,*,\\.o$,\\.obj$,\\.info$,\\.swp$,\\.bak$,\\~$"
 vim.g.netrw_list_hide = ".*\\.uid$" -- Hide Godot .uid files
+
+vim.g.nofsync = true

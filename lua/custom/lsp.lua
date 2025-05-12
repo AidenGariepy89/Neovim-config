@@ -43,6 +43,24 @@ lspconfig.zls.setup({
 vim.g.zig_fmt_parse_errors = 0
 vim.g.zig_fmt_autosave = 0
 
+if vim.uv.os_uname().sysname == "Windows_NT" then
+    lspconfig.clangd.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+    })
+
+    lspconfig.lua_ls.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = {
+            Lua = {
+                workspace = { checkThirdParty = false },
+                telemetry = { enable = false },
+            },
+        },
+    })
+end
+
 require("fidget").setup({})
 require("neodev").setup()
 require("mason").setup()

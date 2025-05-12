@@ -3,8 +3,6 @@
 vim.defer_fn(function()
     require("treesitter-context").disable()
     require("nvim-treesitter.configs").setup({
-        ensure_installed = { "c", "cpp", "go", "lua", "rust", "python", "php", "bash", "javascript", "typescript", "tsx" },
-
         auto_install = true,
         modules = {},
         ignore_install = {},
