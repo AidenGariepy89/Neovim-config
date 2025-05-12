@@ -5,6 +5,18 @@ return {
         priority = 1000,
         config = function()
             vim.cmd.colorscheme("catppuccin-mocha")
+            require("catppuccin").setup({
+                no_italic = true,
+
+                integrations = {
+                    cmp = true,
+                    gitsigns = true,
+                    treesitter = true,
+                    harpoon = true,
+                    telescope = true,
+                    mason = true,
+                },
+            })
         end,
     },
 
