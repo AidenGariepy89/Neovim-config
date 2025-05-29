@@ -69,6 +69,8 @@ require("mason-lspconfig").setup({
         "lua_ls",
     },
 
+    automatic_installation = false,
+
     handlers = {
         function(server_name)
             lspconfig[server_name].setup({
