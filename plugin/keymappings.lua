@@ -34,3 +34,6 @@ set("n", "<leader>-", "<C-x>", { desc = "Decrement" })
 
 set("n", "<leader><leader>l", "<cmd>.lua<CR>", { desc = "Execute the current line" })
 set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Run lua file" })
+
+-- Split horizontally by default.
+set("n", "<C-w>n", vim.cmd.vnew)
