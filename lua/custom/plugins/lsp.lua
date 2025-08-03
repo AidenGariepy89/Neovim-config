@@ -1,11 +1,22 @@
 return {
     "neovim/nvim-lspconfig",
+    tag = "v2.4.0",
     dependencies = {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
-        "j-hui/fidget.nvim",
-        "folke/neodev.nvim",
-        -- "whoissethdaniel/mason-tool-installer.nvim",
+        {
+            "mason-org/mason.nvim",
+            tag = "v2.0.1",
+            opts = {},
+        },
+        {
+            "mason-org/mason-lspconfig.nvim",
+            tag = "v2.1.0",
+            opts = {},
+        },
+        {
+            "j-hui/fidget.nvim",
+            tag = "v1.6.1",
+            opts = {},
+        },
     },
     config = function()
         require("custom.lsp")

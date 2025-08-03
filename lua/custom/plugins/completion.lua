@@ -10,6 +10,11 @@ return {
         "hrsh7th/cmp-buffer",
         { "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
         "saadparwaiz1/cmp_luasnip",
+        {
+            "folke/lazydev.nvim",
+            ft = "lua",
+            opts = {},
+        },
     },
     config = function()
         require("custom.completion")
