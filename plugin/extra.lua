@@ -21,18 +21,30 @@ local function new_terminal()
     }
 end
 
-local function open_terminal()
-    if term_info == nil then
-        term_info = new_terminal()
-        return
+---@param open_prev boolean
+---@param save_instance boolean
+local function open_terminal(open_prev, save_instance)
+    local term;
+
+    if open_prev then
+        term = term_info
+        if term == nil then
+            term = new_terminal()
+        end
+
+        if vim.fn.bufexists(term.buf) ~= 1 then
+            term = new_terminal()
+        end
+    else
+        term = new_terminal()
     end
 
-    if vim.fn.bufexists(term_info.buf) ~= 1 then
-        term_info = new_terminal()
-        return
+    if save_instance then
+        term_info = term
     end
 
-    local windows = vim.fn.win_findbuf(term_info.buf)
+    local windows = vim.fn.win_findbuf(term.buf)
+
     if #windows > 0 then
         vim.api.nvim_set_current_win(windows[1])
         return
@@ -41,18 +53,15 @@ local function open_terminal()
     vim.cmd.new()
     vim.cmd.wincmd("J")
     vim.api.nvim_win_set_height(0, 10)
-    vim.cmd.buffer(term_info.buf)
+    vim.cmd.buffer(term.buf)
+
+    return term
 end
 
 vim.keymap.set("n", "<leader>to", function()
-    open_terminal()
+    open_terminal(true, true)
 end, { desc = "[t]erminal [o]pen" })
 
-vim.keymap.set("n", "<leader>tm", function()
-    open_terminal()
-    if term_info ~= nil then
-        local path = vim.fn.getcwd() .. "/build"
-        vim.fn.chansend(term_info.channel, "cd " .. path .. "\n")
-        vim.fn.chansend(term_info.channel, "make\n")
-    end
-end, { desc = "[t]erminal [m]ake" })
+vim.keymap.set("n", "<leader>b", function()
+    vim.cmd("botright split | resize 10 | terminal ninja -C build")
+end, { desc = "Build C project with Ninja" })
