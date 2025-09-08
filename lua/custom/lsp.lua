@@ -37,6 +37,8 @@ vim.lsp.config("emmet_language_server", {
     },
 })
 
+vim.lsp.enable("clangd", false)
+
 vim.keymap.set("n", "K", function(opts)
     opts = opts or {}
     return vim.lsp.buf.hover(vim.tbl_deep_extend("force", opts, {

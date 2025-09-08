@@ -1,3 +1,15 @@
+local nvimtools_file = io.open(".nvimtools", "r")
+local build_command = ""
+if nvimtools_file then
+    local content = nvimtools_file:read("*a")
+    nvimtools_file:close()
+
+    build_command = content
+end
+
+
+
+
 -- Terminal --
 
 vim.api.nvim_create_autocmd('TermOpen', {
@@ -62,6 +74,12 @@ vim.keymap.set("n", "<leader>to", function()
     open_terminal(true, true)
 end, { desc = "[t]erminal [o]pen" })
 
+-- TODO(aiden): Make the system for opening the build window much much better.
+
 vim.keymap.set("n", "<leader>b", function()
-    vim.cmd("botright split | resize 10 | terminal ninja -C build")
-end, { desc = "Build C project with Ninja" })
+    vim.cmd("vertical split | terminal build " .. build_command)
+end, { desc = "Build C project" })
+
+vim.keymap.set("n", "<leader>B", function()
+    vim.cmd("vertical split | terminal build")
+end, { desc = "Build full C project" })

@@ -12,7 +12,7 @@ vim.defer_fn(function()
             enable = true,
             disable = { "latex", "tex" },
         },
-        indent = { enable = true },
+        -- indent = { enable = true },
         incremental_selection = {
             enable = true,
             keymaps = {
