@@ -6,13 +6,19 @@ vim.defer_fn(function()
         auto_install = true,
         modules = {},
         ignore_install = {},
+        ensure_installed = {},
         sync_install = false,
 
         highlight = {
             enable = true,
             disable = { "latex", "tex" },
         },
-        -- indent = { enable = true },
+        
+        indent = {
+            enable = true,
+            disable = { "c", "html" },
+        },
+
         incremental_selection = {
             enable = true,
             keymaps = {
