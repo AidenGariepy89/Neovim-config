@@ -74,4 +74,5 @@ vim.diagnostic.config({
         header = "",
         prefix = "",
     },
+    virtual_text = true,
 })

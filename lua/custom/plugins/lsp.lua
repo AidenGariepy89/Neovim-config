@@ -4,7 +4,7 @@ return {
     dependencies = {
         {
             "mason-org/mason.nvim",
-            tag = "v2.0.1",
+            tag = "v2.1.0",
             opts = {},
         },
         {

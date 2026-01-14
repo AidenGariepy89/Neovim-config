@@ -3,10 +3,17 @@ return {
         "sainnhe/everforest",
         commit = "d84d9ec",
         priority = 1000,
+        -- config = function()
+        --     vim.g.everforest_disable_italic_comment = 1
+        --     vim.g.everforest_dim_inactive_windows = 1
+        --     vim.cmd.colorscheme("everforest")
+        -- end,
+    },
+    {
+        "navarasu/onedark.nvim",
+        priority = 1000,
         config = function()
-            vim.g.everforest_disable_italic_comment = 1
-            vim.g.everforest_dim_inactive_windows = 1
-            vim.cmd.colorscheme("everforest")
+            vim.cmd.colorscheme("onedark")
         end,
     },
 
@@ -32,7 +39,7 @@ return {
                 },
                 options = {
                     icons_enabled = true,
-                    theme = "everforest",
+                    theme = "onedark",
                     component_separators = '',
                     section_separators = '',
                 },
