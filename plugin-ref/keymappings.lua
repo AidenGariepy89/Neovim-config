@@ -2,8 +2,8 @@ local set = vim.keymap.set
 
 set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open explorer" })
 
-set("v", "J", ":m '>+1<CR>gv=gv")
-set("v", "K", ":m '<-2<CR>gv=gv")
+set("v", "J", ":m '>+1<CR>gv=gv") -- Move selected line down
+set("v", "K", ":m '<-2<CR>gv=gv") -- Move selected line up
 
 set("n", "J", "mzJ`z")
 set("n", "<C-u>", "<C-u>zz")
