@@ -3,30 +3,6 @@ vim.g.localleader = '\\'
 
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 
--- ///////////////
--- Loading Plugins
-
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-    if vim.v.shell_error ~= 0 then
-        vim.api.nvim_echo({
-            { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-            { out, "WarningMsg" },
-            { "\nPress any key to exit..." },
-        }, true, {})
-        vim.fn.getchar()
-        os.exit(1)
-    end
-end
-vim.opt.rtp:prepend(lazypath)
-
-require("lazy").setup({
-    spec = {
-    },
-})
-
 -- ///////
 -- Options
 
@@ -55,12 +31,14 @@ vim.opt.termguicolors = true
 vim.opt.swapfile = false
 vim.opt.backup   = false
 if vim.uv.os_uname().sysname ~= "Windows_NT" then
-    vim.opt.undodir = os.genenv("HOME") .. "/.vim/undodir"
+    vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 end
 vim.opt.undofile   = true
 vim.opt.updatetime = 50
 vim.opt.isfname:append("@-@")
 vim.g.nofsync = true
+
+vim.cmd.colorscheme("aiden")
 
 -- ///////////
 -- Keymappings
@@ -95,3 +73,225 @@ set("n", "<C-w>n", vim.cmd.vnew) -- Split horizontally by default
 set("n", "<leader>x", "<cmd>!chmod +x %<CR>")      -- Make file executable
 set("n", "<leader><leader>l", "<cmd>.lua<CR>")     -- Source current lua line
 set("n", "<leader><leader>x", "<cmd>source %<CR>") -- Source current lua file
+set("n", "<leader>i", "<cmd>Inspect<CR>")          -- Inspect
+
+-- /////////////////////////
+-- Plugin Setup and Keybinds
+
+-- [ Undotree ]
+set("n", "<leader>u", vim.cmd.UndotreeToggle) -- Open Undotree
+
+-- [ Git Fugitive ]
+set("n", "<leader>gs", vim.cmd.Git)
+set("n", "<leader>gl", "<cmd>Git log --oneline<cr>")
+set("n", "<leader>gf", "<cmd>Git fetch<cr>")
+set("n", "gh", "<cmd>diffget //2<cr>", { desc = "Git diff select left" })
+set("n", "gl", "<cmd>diffget //3<cr>", { desc = "Git diff select right" })
+
+-- [ Harpooon ]
+function harpoon_setup()
+    local harpoon = require("harpoon")
+
+    harpoon:setup()
+
+    set("n", "<leader>a", function() harpoon:list():add() end)
+    set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+    set("n", "<C-h>", function() harpoon:list():select(1) end)
+    set("n", "<C-t>", function() harpoon:list():select(2) end)
+    set("n", "<C-n>", function() harpoon:list():select(3) end)
+    set("n", "<C-s>", function() harpoon:list():select(4) end)
+
+    set("n", "<C-S-P>", function() harpoon:list():prev() end)
+    set("n", "<C-S-N>", function() harpoon:list():next() end)
+end
+
+-- [ Telescope ]
+function telescope_setup()
+
+    local builtin = require("telescope.builtin")
+
+    set("n", "<leader>sf", builtin.find_files)  -- Search Files
+    set("n", "<leader>sh", builtin.help_tags)   -- Search Help
+    set("n", "<leader>sw", builtin.grep_string) -- Search Word
+    set("n", "<leader>sg", builtin.live_grep)   -- Search Grep
+    set("n", "<leader>sm", builtin.man_pages)   -- Search Manual
+    set("n", "<leader>sb", builtin.buffers)     -- Search Buffers
+    set("n", "<leader>sc", builtin.colorscheme) -- Search Colors
+    set("n", "<leader>sch", builtin.highlights)  -- Search Highlights
+
+end
+
+-- [ Cmp ]
+function cmp_setup()
+    vim.opt.shortmess:append "c"
+
+    local cmp = require("cmp")
+    local cmp_select = { behavior = cmp.SelectBehavior.Insert }
+
+    cmp.setup({
+        sources = {
+            { name = "path" },
+            { name = "buffer" },
+        },
+        mapping = {
+            ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
+            ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
+            ["<C-y>"] = cmp.mapping.confirm({
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = true,
+            }),
+            ["<C-Space>"] = cmp.mapping.complete({}),
+        },
+        completion = {
+            completeopt = "menu,menuone,noinsert",
+        },
+        window = {
+            completion = {
+                border = "rounded",
+                scrollbar = true,
+            },
+        },
+    })
+end
+
+-- [ Align ]
+function align_setup()
+    local align = require("align")
+
+    set("x", "<leader>aa", function() align.align_to_char({ preview = true, length = 1 }) end)      -- Align to character
+    set("x", "<leader>ap", function() align.align_to_char({ preview = true, length = 2 }) end)      -- Align to character (with Preview)
+    set("x", "<leader>as", function() align.align_to_string({ preview = true, regex = false }) end) -- Align to string
+end
+
+-- ///////////////
+-- Loading Plugins
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+    if vim.v.shell_error ~= 0 then
+        vim.api.nvim_echo({
+            { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+            { out, "WarningMsg" },
+            { "\nPress any key to exit..." },
+        }, true, {})
+        vim.fn.getchar()
+        os.exit(1)
+    end
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
+    spec = {
+
+        -- ///////
+        -- Plugins
+
+        -- [ Colorscheme ]
+        {
+            "navarasu/onedark.nvim",
+            priority = 1000,
+            config = function()
+            end,
+        },
+
+        -- [ Lualine ]
+        {
+            "nvim-lualine/lualine.nvim",
+            commit = "a94fc68",
+            opts = {
+                sections = {
+                    lualine_x = {
+                        "encoding",
+                        {
+                            "fileformat",
+                            symbols = {
+                                unix = "lf",
+                                dos = "crlf",
+                                mac = "cr",
+                            },
+                        },
+                        "filetype",
+                    },
+                },
+                options = {
+                    icons_enabled = true,
+                    component_separators = '',
+                    section_separators = '',
+                    theme = 'aiden',
+                },
+            }
+        },
+
+        -- [ Undotree ]
+        {
+            "mbbill/undotree",
+            tag = "rel_6.1",
+        },
+
+        -- [ Git Fugitive ]
+        {
+            "tpope/vim-fugitive",
+        },
+
+        -- [ Comment ]
+        {
+            "numToStr/Comment.nvim",
+            tag = "v0.8.0",
+            opts = {},
+        },
+
+        -- [ Harpoon ]
+        {
+            "theprimeagen/harpoon",
+            branch = "harpoon2",
+            dependencies = { "nvim-lua/plenary.nvim" },
+            config = harpoon_setup,
+        },
+
+        -- [ Telescope ]
+        {
+            "nvim-telescope/telescope.nvim",
+            tag = "v0.2.1",
+            dependencies = { "nvim-lua/plenary.nvim" },
+            config = telescope_setup,
+        },
+
+        -- [ Treesitter ]
+        {
+            "nvim-treesitter/nvim-treesitter",
+            lazy = false,
+            build = ":TSUpdate",
+        },
+
+        -- [ Cmp ]
+        {
+            "hrsh7th/nvim-cmp",
+            lazy = false,
+            priority = 100,
+            dependencies = {
+                "hrsh7th/cmp-path",
+                "hrsh7th/cmp-buffer",
+            },
+            config = cmp_setup,
+        },
+
+        -- [ Align ]
+        {
+            "Vonr/align.nvim",
+            commit = "bc5d57d", -- branch = "v2"
+            lazy = true,
+            init = align_setup,
+        },
+
+        -- [ Indent line ]
+        {
+            "lukas-reineke/indent-blankline.nvim",
+            tag = "v3.9.0",
+            main = "ibl",
+            opts = {},
+        },
+    },
+})
