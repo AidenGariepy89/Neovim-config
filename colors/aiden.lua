@@ -1,1 +1,1 @@
-require("aiden-colors").colorscheme()
+require("aiden-colors").aiden()

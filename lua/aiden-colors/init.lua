@@ -23,43 +23,85 @@ local M = {
 
 local colors = M.colors
 
-function M.colorscheme()
+function M.aiden()
     vim.cmd("hi clear")
 
     vim.o.background  = "dark";
-    vim.g.colors_name = "aiden-colors";
+    vim.g.colors_name = "aiden";
 
     local set = vim.api.nvim_set_hl
-
-    -- asdkjflaskdjfaldksfj
 
     -- [ Gui ]
     set(0, "Normal",      { fg = colors.fg, bg = colors.bg })
     set(0, "Visual",      { bg = colors.highlight })
     set(0, "ColorColumn", { bg = colors.dark_gray })
     set(0, "StatusLine",  { bg = colors.bg })
-    set(0, "DiffAdd",     { fg = colors.bg, bg = colors.green })
+    set(0, "Added",       { fg = colors.green })
+    set(0, "Changed",     { fg = colors.blue })
+    set(0, "Removed",     { fg = colors.red })
     set(0, "DiffAdd",     { bg = colors.dark_green })
     set(0, "DiffChange",  { bg = colors.dark_blue })
     set(0, "DiffDelete",  { bg = colors.dark_red })
+    set(0, "Directory",   { fg = colors.green })
 
     -- [ Syntax ]
-    set(0, "Comment",   { fg = colors.gray })
-    set(0, "String",    { fg = colors.green })
-    set(0, "Statement", { fg = colors.purple })
-    set(0, "Operator",  { fg = colors.fg })
-    set(0, "Delimiter", { fg = colors.fg })
-    set(0, "@variable", { fg = colors.fg })
-    set(0, "Function",  { fg = colors.blue })
-    set(0, "Type",      { fg = colors.yellow })
-    set(0, "Constant",  { fg = colors.orange })
-    set(0, "@property", { fg = colors.light_blue })
+    set(0, "Comment",             { fg = colors.gray })
+    set(0, "String",              { fg = colors.green })
+    set(0, "Statement",           { fg = colors.purple })
+    set(0, "Operator",            { fg = colors.fg })
+    set(0, "Delimiter",           { fg = colors.fg })
+    set(0, "@variable",           { fg = colors.fg })
+    set(0, "Function",            { fg = colors.blue })
+    set(0, "Type",                { fg = colors.yellow })
+    set(0, "Constant",            { fg = colors.orange })
+    set(0, "@property",           { fg = colors.light_blue })
     set(0, "@variable.parameter", { fg = colors.red })
-    set(0, "@variable.member", { link = "@property" })
-    set(0, "@type.builtin", { link = "Type" })
-    set(0, "Identifier", { fg = colors.fg })
-    set(0, "Special",    { fg = colors.fg })
-    set(0, "Error",      { fg = colors.fg })
+    set(0, "@variable.member",    { link = "@property" })
+    set(0, "@type.builtin",       { link = "Type" })
+    set(0, "Identifier",          { fg = colors.fg })
+    set(0, "Special",             { fg = colors.fg })
+    set(0, "Error",               { fg = colors.fg })
+
+end
+
+function M.aiden_dim()
+    vim.cmd("hi clear")
+
+    vim.o.background  = "dark";
+    vim.g.colors_name = "aiden-dim";
+
+    local set = vim.api.nvim_set_hl
+
+    -- [ Gui ]
+    set(0, "Normal",      { fg = colors.fg, bg = colors.bg })
+    set(0, "Visual",      { bg = colors.highlight })
+    set(0, "ColorColumn", { bg = colors.dark_gray })
+    set(0, "StatusLine",  { bg = colors.bg })
+    set(0, "Added",       { fg = colors.green })
+    set(0, "Changed",     { fg = colors.blue })
+    set(0, "Removed",     { fg = colors.red })
+    set(0, "DiffAdd",     { bg = colors.dark_green })
+    set(0, "DiffChange",  { bg = colors.dark_blue })
+    set(0, "DiffDelete",  { bg = colors.dark_red })
+    set(0, "Directory",   { fg = colors.green })
+
+    -- [ Syntax ]
+    set(0, "Comment",             { fg = colors.gray })
+    set(0, "String",              { fg = colors.green })
+    set(0, "Statement",           { fg = colors.fg })
+    set(0, "Operator",            { fg = colors.fg })
+    set(0, "Delimiter",           { fg = colors.fg })
+    set(0, "@variable",           { fg = colors.fg })
+    set(0, "Function",            { fg = colors.fg })
+    set(0, "Type",                { fg = colors.fg })
+    set(0, "Constant",            { fg = colors.fg })
+    set(0, "@property",           { fg = colors.fg })
+    set(0, "@variable.parameter", { fg = colors.fg })
+    set(0, "@variable.member",    { link = "@property" })
+    set(0, "@type.builtin",       { link = "Type" })
+    set(0, "Identifier",          { fg = colors.fg })
+    set(0, "Special",             { fg = colors.fg })
+    set(0, "Error",               { fg = colors.fg })
 
 end
 

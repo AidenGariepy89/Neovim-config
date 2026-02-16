@@ -1,4 +1,4 @@
-vim.g.mapleader = ' '
+vim.g.mapleader   = ' '
 vim.g.localleader = '\\'
 
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
@@ -164,6 +164,87 @@ function align_setup()
     set("x", "<leader>as", function() align.align_to_string({ preview = true, regex = false }) end) -- Align to string
 end
 
+-- /////////
+-- Compiling
+
+local function is_quickfix_open()
+    local result = false
+    for _, win in pairs(vim.fn.getwininfo()) do
+        if win.quickfix == 1 then
+            result = true
+            break
+        end
+    end
+    return result
+end
+
+local function quickfix_error_count()
+    local entries = vim.fn.getqflist()
+    local errors = 0
+    for _, entry in pairs(entries) do
+        if entry.type ~= "" then
+            errors = errors + 1
+        end
+    end
+    return errors
+end
+
+if vim.uv.os_uname().sysname == "Windows_NT" then
+    vim.cmd("set makeprg=nmake")
+    vim.cmd("compiler msvc")
+end
+
+set("n", "<leader>b", function() -- Compile program
+    vim.cmd("make")
+    if quickfix_error_count() > 0 and not is_quickfix_open() then
+        vim.cmd("copen")
+    end
+end)
+set("n", "<leader>q", function() -- Toggle quickfix
+    if is_quickfix_open() then
+        vim.cmd("cclose")
+    else
+        vim.cmd("copen")
+    end
+end)
+
+-- ////////////////
+-- Terminal Opening
+
+local __term_info = nil
+
+local function new_term()
+    vim.cmd.new()
+    vim.cmd.wincmd("J")
+    vim.api.nvim_win_set_height(0, 10)
+    vim.cmd.term()
+
+    return vim.api.nvim_get_current_buf()
+end
+
+local function open_term()
+    local term = __term_info
+
+    if term == nil or vim.fn.bufexists(term) ~= 1 then
+        term = new_term()
+        __term_info = term
+    end
+
+    local windows = vim.fn.win_findbuf(term)
+
+    if #windows > 0 then
+        vim.api.nvim_set_current_win(windows[1])
+        return
+    end
+
+    vim.cmd.new()
+    vim.cmd.wincmd("J")
+    vim.api.nvim_win_set_height(0, 10)
+    vim.cmd.buffer(term)
+end
+
+set("n", "<leader>to", function() open_term() end) -- Open Terminal
+
 -- ///////////////
 -- Loading Plugins
 
@@ -234,6 +315,44 @@ require("lazy").setup({
         -- [ Git Fugitive ]
         {
             "tpope/vim-fugitive",
+        },
+
+        -- [ Git Signs ]
+        {
+            "lewis6991/gitsigns.nvim",
+            opts = {
+                signs = {
+                    add = { text = '+' },
+                    change = { text = '~' },
+                    delete = { text = '_' },
+                    topdelete = { text = '‾' },
+                    changedelete = { text = '~' },
+                },
+                on_attach = function(bufnr)
+                    vim.keymap.set("n", "<leader>hp", require("gitsigns").preview_hunk,
+                    { buffer = bufnr, desc = "Preview git hunk" })
+
+                    local gs = package.loaded.gitsigns
+                    vim.keymap.set({ "n", "v" }, "]c", function()
+                        if vim.wo.diff then
+                            return "]c"
+                        end
+                        vim.schedule(function()
+                            gs.next_hunk()
+                        end)
+                        return "<Ignore>"
+                    end, { expr = true, buffer = bufnr, desc = "Jump to next hunk" })
+                    vim.keymap.set({ "n", "v" }, "[c", function()
+                        if vim.wo.diff then
+                            return "[c"
+                        end
+                        vim.schedule(function()
+                            gs.prev_hunk()
+                        end)
+                        return "<Ignore>"
+                    end, { expr = true, buffer = bufnr, desc = "Jump to previous hunk" })
+                end,
+            },
         },
 
         -- [ Comment ]
