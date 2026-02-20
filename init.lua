@@ -414,3 +414,10 @@ require("lazy").setup({
         },
     },
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "lua", "c", "cpp", "python" },
+    callback = function(ev)
+        vim.treesitter.start()
+    end,
+})

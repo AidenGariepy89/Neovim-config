@@ -56,11 +56,15 @@ function M.aiden()
     set(0, "Constant",            { fg = colors.orange })
     set(0, "@property",           { fg = colors.light_blue })
     set(0, "@variable.parameter", { fg = colors.red })
-    set(0, "@variable.member",    { link = "@property" })
-    set(0, "@type.builtin",       { link = "Type" })
     set(0, "Identifier",          { fg = colors.fg })
     set(0, "Special",             { fg = colors.fg })
     set(0, "Error",               { fg = colors.fg })
+    set(0, "@variable.member",    { link = "@property" })
+    set(0, "@variable.builtin",   { link = "@variable.parameter" })
+    set(0, "@type.builtin",       { link = "Type" })
+    set(0, "@function.builtin",   { link = "Function" })
+    set(0, "@constructor",        { link = "Function" })
+    set(0, "@constant.builtin",   { link = "Constant" })
 
 end
 
