@@ -194,18 +194,97 @@ if vim.uv.os_uname().sysname == "Windows_NT" then
     vim.cmd("compiler msvc")
 end
 
-set("n", "<leader>b", function() -- Compile program
-    vim.cmd("make")
-    if quickfix_error_count() > 0 and not is_quickfix_open() then
-        vim.cmd("copen")
-    end
-end)
-set("n", "<leader>q", function() -- Toggle quickfix
+set("n", "<leader>qf", function() -- Toggle quickfix
     if is_quickfix_open() then
         vim.cmd("cclose")
     else
         vim.cmd("copen")
     end
+end)
+
+-- /////////
+-- Proj Conf
+
+proj_conf = require("custom.proj_conf")
+
+-- /////
+-- Build
+
+local __build_buf = nil
+
+local function open_build_win()
+
+    local build_win   = nil
+    local windows     = vim.api.nvim_tabpage_list_wins(0)
+    local current_win = vim.api.nvim_get_current_win()
+    local delete_buf  = nil
+
+    if __build_buf ~= nil then
+        if vim.fn.bufexists(__build_buf) ~= 1 then
+            __build_buf = nil
+        else
+            for _, val in ipairs(windows) do
+                if vim.api.nvim_win_get_buf(val) == __build_buf then
+                    build_win = val
+                    break
+                end
+            end
+
+            delete_buf = __build_buf
+            __build_buf = nil
+        end
+    end
+
+    if build_win == nil and #windows > 1 then
+        local largest_area = 0
+        for _, val in ipairs(windows) do
+            if val ~= current_win then
+                local w = vim.api.nvim_win_get_width(val)
+                local h = vim.api.nvim_win_get_height(val)
+                local a = w * h
+                if largest_area < a then
+                    largest_area = a
+                    build_win = val
+                end
+            end
+        end
+    end
+
+    local build_cmd = proj_conf:get_opt("build_cmd")
+    local build_buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_buf_call(build_buf, function()
+        vim.cmd("terminal " .. build_cmd)
+    end)
+
+    if build_win == nil then
+        vim.api.nvim_open_win(build_buf, false, {
+            split = "left",
+            win   = 0,
+        })
+    else
+        vim.api.nvim_win_set_buf(build_win, build_buf)
+    end
+
+    if delete_buf ~= nil then
+        vim.api.nvim_buf_delete(delete_buf, {})
+    end
+
+    __build_buf = build_buf
+end
+
+local function edit_build_cmd()
+    local build_cmd = proj_conf:get_opt("build_cmd")
+    vim.ui.input({
+        prompt = "Enter new build cmd (previous cmd: `" .. build_cmd .. "`): ",
+    }, function(input)
+        proj_conf:set_opt("build_cmd", input)
+    end)
+end
+
+set("n", "<leader>b", open_build_win) -- Build
+set("n", "<leader>B", edit_build_cmd) -- Edit build cmd
+set("n", "<leader>qb", function()
+    vim.cmd("cb " .. __build_buf)
 end)
 
 -- ////////////////
