@@ -1,4 +1,4 @@
-local colors = require("aiden-colors").colors
+local colors = require("aiden-colors").aiden_colors
 
 return {
     normal = {

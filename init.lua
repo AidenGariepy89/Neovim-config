@@ -38,7 +38,7 @@ vim.opt.updatetime = 50
 vim.opt.isfname:append("@-@")
 vim.g.nofsync = true
 
-vim.cmd.colorscheme("aiden")
+vim.cmd.colorscheme("aiden2")
 
 -- ///////////
 -- Keymappings
@@ -277,7 +277,9 @@ local function edit_build_cmd()
     vim.ui.input({
         prompt = "Enter new build cmd (previous cmd: `" .. build_cmd .. "`): ",
     }, function(input)
-        proj_conf:set_opt("build_cmd", input)
+        if input ~= nil then
+            proj_conf:set_opt("build_cmd", input)
+        end
     end)
 end
 
@@ -380,7 +382,7 @@ require("lazy").setup({
                     icons_enabled = true,
                     component_separators = '',
                     section_separators = '',
-                    theme = 'aiden',
+                    theme = 'aiden2',
                 },
             }
         },
