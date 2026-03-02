@@ -212,7 +212,7 @@ proj_conf = require("custom.proj_conf")
 
 local __build_buf = nil
 
-local function open_build_win()
+local function open_build_win(build_cmd)
 
     local build_win   = nil
     local windows     = vim.api.nvim_tabpage_list_wins(0)
@@ -250,7 +250,6 @@ local function open_build_win()
         end
     end
 
-    local build_cmd = proj_conf:get_opt("build_cmd")
     local build_buf = vim.api.nvim_create_buf(false, true)
     vim.api.nvim_buf_call(build_buf, function()
         vim.cmd("terminal " .. build_cmd)
@@ -283,11 +282,19 @@ local function edit_build_cmd()
     end)
 end
 
-set("n", "<leader>b", open_build_win) -- Build
+set("n", "<leader>b", function()
+    local build_cmd = proj_conf:get_opt("build_cmd")
+    if build_cmd ~= "" then
+        open_build_win(build_cmd)
+    end
+end)                                  -- Build
 set("n", "<leader>B", edit_build_cmd) -- Edit build cmd
 set("n", "<leader>qb", function()
     vim.cmd("cb " .. __build_buf)
 end)
+set("n", "<leader>gt", function()
+    vim.cmd("!ctags --exclude=\"Makefile\" --exclude=\"*.json\" -R .")
+end)                                  -- Generate tags
 
 -- ////////////////
 -- Terminal Opening
